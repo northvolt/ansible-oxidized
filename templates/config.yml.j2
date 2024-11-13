@@ -13,8 +13,8 @@ next_adds_job: {{ OXIDIZED_NEXT_ADDS_JOB }}
 rest_hide_enable: {{ OXIDIZED_HIDE_SECRETS }}
 vars: 
   remove_secret: {{ OXIDIZED_HIDE_SECRETS }}
-{% if OXIDIZED_HIDE_SECRETS_IOS_RBAC | length > 0 %}
-  ios_rbac: {{ OXIDIZED_HIDE_SECRETS_IOS_RBAC }}
+{% if OXIDIZED_HIDE_SECRETS_IOS_RBAC %}
+  ios_rbac: true
 {% endif %}
 
 {% if OXIDIZED_SSH_USERNAME | length > 0 %}
