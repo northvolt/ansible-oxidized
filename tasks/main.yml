@@ -1,11 +1,11 @@
 ---
-- name: Create Oxidized group
+- name: Create Oxidized group.
   group:
     name: oxidized
     state: present
     gid: 30000
 
-- name: Create Oxidized user
+- name: Create Oxidized user.
   user:
     comment: Oxidized user
     name: oxidized
@@ -15,7 +15,7 @@
     state: present
     uid: 30000
 
-- name: Create needed directories
+- name: Create needed directories.
   file:
     path: "{{ item }}"
     state: directory
@@ -27,7 +27,7 @@
     - "{{ OXIDIZED_IMPORT_MODEL_PATH }}"
     - "{{ OXIDIZED_GIT_LOCAL_REPO }}"
 
-- name: copy config file
+- name: Copy config file.
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dst }}"
@@ -38,7 +38,7 @@
     - src: "{{ OXIDIZED_CONFIG_TEMPLATE }}"
       dst: "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_CONFIG_FILE }}"
 
-- name: copy equipment file
+- name: Copy equipment file.
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dst }}"
@@ -50,7 +50,7 @@
       dst: "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_DB_FILE }}"
   when: OXIDIZED_EQUIPMENTS 
 
-- name: Copy SSH keys
+- name: Copy SSH keys.
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dst }}"
@@ -63,7 +63,7 @@
     - src: "{{ OXIDIZED_GIT_PRIVATE_KEY_TEMPLATE }}"
       dst: "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_GIT_PRIVATE_KEY_FILE }}"
 
-- name: Copy models
+- name: Copy models.
   copy:
     src: "{{ OXIDIZED_IMPORT_MODEL_LOCAL_PATH }}"
     dest: "{{ OXIDIZED_IMPORT_MODEL_PATH }}"
@@ -73,7 +73,6 @@
   when: OXIDIZED_IMPORT_MODEL_LOCAL_PATH is defined
 
 - name: Clone backup repository
-  remote_user: oxidized
   git:
     dest: "{{ OXIDIZED_GIT_LOCAL_REPO }}"
     key_file: "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_GIT_PRIVATE_KEY_FILE }}"
@@ -81,7 +80,15 @@
     update: false
     accept_hostkey: true
 
-- name: "Create the oxidized container."
+- name: Copy known_hosts from root to oxidized.
+  copy:
+    src: /root/.ssh/known_hosts
+    dst: /home/oxidized/.ssh/known_hosts
+    owner: oxidized
+    group: oxidized
+    mode: u=rwx,g=rx,o=
+
+- name: Create the oxidized container.
   docker_container:
     recreate: true
     name: oxidized
