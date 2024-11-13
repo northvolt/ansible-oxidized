@@ -48,7 +48,7 @@
   loop:
     - src: "{{ OXIDIZED_DB_TEMPLATE }}"
       dst: "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_DB_FILE }}"
-  when: "{{ OXIDIZED_EQUIPMENTS | length > 0 }}" 
+  when: OXIDIZED_EQUIPMENTS 
 
 - name: Copy SSH keys
   copy:
