@@ -29,7 +29,7 @@ password: {{ OXIDIZED_SSH_PASSWORD }}
 # Input settings
 input:
 {% for inputs in OXIDIZED_INPUT %}
-{{ outputs }}
+  {{ inputs }}
 {% endfor %}
 {% endif %}
 
@@ -37,7 +37,7 @@ input:
 # Device database
 source:
 {% for sources in OXIDIZED_SOURCE %}
-{{ sources }}
+  {{ sources }}
 {% endfor %}
 {% endif %}
 
@@ -45,7 +45,7 @@ source:
 # Output settings
 output:
 {% for outputs in OXIDIZED_OUTPUT %}
-{{ outputs }}
+  {{ outputs }}
 {% endfor %}
 {% endif %}
 
@@ -53,6 +53,6 @@ output:
 # Hooks to execute on changes
 hooks:
 {% for hooks in OXIDIZED_HOOKS %}
-{{ hooks }}
+  {{ hooks }}
 {% endfor %}
 {% endif %}
