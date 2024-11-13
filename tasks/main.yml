@@ -27,7 +27,7 @@
     - "{{ OXIDIZED_IMPORT_MODEL_PATH }}"
     - "{{ OXIDIZED_GIT_LOCAL_REPO }}"
 
-- name: copy config files
+- name: copy config file
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dst }}"
@@ -37,8 +37,18 @@
   loop:
     - src: "{{ OXIDIZED_CONFIG_TEMPLATE }}"
       dst: "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_CONFIG_FILE }}"
+
+- name: copy equipment file
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dst }}"
+    owner: oxidized
+    group: oxidized
+    mode: u=rwx,g=rx,o=
+  loop:
     - src: "{{ OXIDIZED_DB_TEMPLATE }}"
       dst: "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_DB_FILE }}"
+  when: "{{ OXIDIZED_EQUIPMENTS | length > 0 }}" 
 
 - name: Copy SSH keys
   copy:
