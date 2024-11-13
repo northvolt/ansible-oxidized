@@ -11,7 +11,7 @@
     name: oxidized
     group: oxidized
     shell: /sbin/nologin
-    create_home: false
+    create_home: true
     state: present
     uid: 30000
 
@@ -97,5 +97,6 @@
       - "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_GIT_PRIVATE_KEY_FILE }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/id_git:rw"
       - "{{ OXIDIZED_IMPORT_MODEL_PATH }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/model:rw"
       - "{{ OXIDIZED_GIT_LOCAL_REPO }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/repo:rw"
+      - "/home/oxidized/.ssh:/home/oxidized/.ssh:rw"
   tags: molecule-notest
   become: true
