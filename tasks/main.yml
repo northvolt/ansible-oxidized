@@ -83,7 +83,7 @@
 - name: Copy known_hosts from root to oxidized.
   copy:
     src: /root/.ssh/known_hosts
-    dst: /home/oxidized/.ssh/known_hosts
+    dest: /home/oxidized/.ssh/known_hosts
     owner: oxidized
     group: oxidized
     mode: u=rwx,g=rx,o=
