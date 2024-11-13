@@ -13,47 +13,46 @@ next_adds_job: {{ OXIDIZED_NEXT_ADDS_JOB }}
 rest_hide_enable: {{ OXIDIZED_HIDE_SECRETS }}
 vars: 
   remove_secret: {{ OXIDIZED_HIDE_SECRETS }}
+{% if OXIDIZED_HIDE_SECRETS_IOS_RBAC | lenght > 0 %}
+  ios_rbac: {{ OXIDIZED_HIDE_SECRETS_IOS_RBAC }}
+{% endif %}
 
+{% if OXIDIZED_SSH_USERNAME | length > 0 %}
+# Default SSH login
+username: {{ OXIDIZED_SSH_USERNAME }}
+{% if OXIDIZED_SSH_PASSWORD | lenght > 0 %}
+password: {{ OXIDIZED_SSH_PASSWORD }}
+{% endif %}
+{% endif %}
+
+{% if OXIDIZED_INPUT | length > 0 %}
 # Input settings
 input:
-  default: ssh
-  ssh:
-    secure: {{ OXIDIZED_SECURE_SSH }}
-  utf8_encoded: true
+{% for inputs in OXIDIZED_INPUT %}
+{{ outputs }}
+{% endfor %}
+{% endif %}
 
+{% if OXIDIZED_SOURCE | length > 0 %}
 # Device database
 source:
-  default: csv
-  csv:
-    file: {{ OXIDIZED_CONTAINER_CONFIG_PATH }}/equipments.csv
-    delimiter: !ruby/regexp /,/
-    map:
-      name: 0
-      ip: 1
-      model: 2
-      username: 3
-      password: 4
-    gpg: false
+{% for sources in OXIDIZED_SOURCE %}
+{{ sources }}
+{% endfor %}
+{% endif %}
 
+{% if OXIDIZED_OUTPUT | length > 0 %}
 # Output settings
 output:
-  default: git
-  git:
-    user: {{ OXIDIZED_GIT_USER }}
-    email: {{ OXIDIZED_GIT_EMAIL }}
-    repo: {{ OXIDIZED_CONTAINER_CONFIG_PATH }}/repo
+{% for outputs in OXIDIZED_OUTPUT %}
+{{ outputs }}
+{% endfor %}
+{% endif %}
 
+{% if OXIDIZED_HOOKS | length > 0 %}
 # Hooks to execute on changes
 hooks:
-  push_to_remote:
-    type: githubrepo
-    events: [post_store]
-    remote_repo: {{ OXIDIZED_GIT_REMOTE_REPO }}
-    publickey: {{ OXIDIZED_CONTAINER_CONFIG_PATH }}/id_git.pub
-    privatekey: {{ OXIDIZED_CONTAINER_CONFIG_PATH }}/id_git
-  slack:
-    type: slackdiff
-    events: [post_store]
-    token: {{ OXIDIZED_SLACK_TOKEN }}
-    channel: "{{ OXIDIZED_SLACK_CHANNEL }}"
-    message: "%{node} config updated! {{ OXIDIZED_SLACK_COMMIT_URL }}%{commitref}"
+{% for hooks in OXIDIZED_HOOKS %}
+{{ hooks }}
+{% endfor %}
+{% endif %}
