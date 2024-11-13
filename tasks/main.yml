@@ -73,6 +73,7 @@
   when: OXIDIZED_IMPORT_MODEL_LOCAL_PATH is defined
 
 - name: Clone backup repository
+  remote_user: oxidized
   git:
     dest: "{{ OXIDIZED_GIT_LOCAL_REPO }}"
     key_file: "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_GIT_PRIVATE_KEY_FILE }}"
