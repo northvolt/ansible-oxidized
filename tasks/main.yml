@@ -62,6 +62,7 @@
 
 - name: Copy SSH keys.
   blockinfile:
+    create: true
     block: "{{ item.src }}"
     path: "{{ item.dst }}"
     owner: oxidized
