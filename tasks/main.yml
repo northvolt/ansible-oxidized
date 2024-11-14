@@ -10,6 +10,7 @@
     comment: Oxidized user
     name: oxidized
     group: oxidized
+    groups: podman
     shell: /sbin/nologin
     create_home: true
     state: present
