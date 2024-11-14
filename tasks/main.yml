@@ -61,9 +61,9 @@
   when: OXIDIZED_EQUIPMENTS 
 
 - name: Copy SSH keys.
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dst }}"
+  blockinfile:
+    block: "{{ item.src }}"
+    path: "{{ item.dst }}"
     owner: oxidized
     group: oxidized
     mode: u=rwx,g=,o=
