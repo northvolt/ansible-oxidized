@@ -96,7 +96,7 @@
     recreate: true
     name: oxidized
     hostname: oxidized
-    image: oxidized/oxidized:latest
+    image: docker.io/oxidized/oxidized:latest
     restart_policy: always
     dns_servers: "{{ OXIDIZED_DNS }}"
     ports:
