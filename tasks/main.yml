@@ -81,7 +81,7 @@
     owner: oxidized
     group: oxidized
     mode: u=rwx,g=,o=
-  when: OXIDIZED_IMPORT_MODEL_LOCAL_PATH
+  when: OXIDIZED_IMPORT_MODEL_PATH
 
 - name: Clone backup repository
   git:
