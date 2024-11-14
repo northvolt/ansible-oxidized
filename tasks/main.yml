@@ -80,8 +80,8 @@
     update: false
     accept_hostkey: true
 
-- name: Create the oxidized container.
-  docker_container:
+- name: Create the oxidized container
+  containers.podman.podman_container:
     recreate: true
     name: oxidized
     hostname: oxidized
@@ -90,7 +90,7 @@
     dns_servers: "{{ OXIDIZED_DNS }}"
     ports:
       - "{{ OXIDIZED_LISTEN }}:{{ OXIDIZED_LISTEN_PORT }}"
-    volumes:
+    volume:
       - "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_CONFIG_FILE }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/config:rw"
       - "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_DB_FILE }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/equipments.csv:rw"
       - "/home/oxidized/.ssh/{{ OXIDIZED_GIT_PUBLIC_KEY_FILE }}:/home/oxidized/.ssh/{{ OXIDIZED_GIT_PUBLIC_KEY_FILE }}:rw"
