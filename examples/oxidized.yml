@@ -1,0 +1,65 @@
+---
+OXIDIZED_GIT_USER: Oxidized
+OXIDIZED_GIT_EMAIL: oxidized@example.com
+OXIDIZED_GIT_LOCAL_REPO: "{{ OXIDIZED_CONFIG_PATH }}/repo"
+OXIDIZED_GIT_REMOTE_REPO: git@github.com:example/oxidized.git
+OXIDIZED_GIT_PRIVATE_KEY_TEMPLATE: oxidized_rsa_key
+OXIDIZED_GIT_PUBLIC_KEY_TEMPLATE: oxidized_rsa_key.pub
+OXIDIZED_SSH_USERNAME: "user"
+OXIDIZED_SSH_PASSWORD: "password, I recommend either using ansible vault or doing a lookup to a vault of some kind"
+OXIDIZED_HIDE_SECRETS_IOS_RBAC: true
+
+# first line is indented in the template so "  " will be added before "push_to_remote"
+OXIDIZED_HOOKS:
+  - |
+    push_to_remote:
+        remote_repo:
+          first: git@github.com:example/oxidized.git
+          second: git@github.com:example/oxidized.git
+          third: git@github.com:northvolt/oxidized.git
+        type: githubrepo
+        events: [post_store]
+        publickey: id_git.pub
+        privatekey: id_git
+# first line is indented in the template so "  " will be added before "default: ssh"
+OXIDIZED_INPUT:
+  - |
+    default: ssh
+      ssh:
+        secure: false
+      utf8_encoded: true
+# first line is indented in the template so "  " will be added before "default: csv"
+OXIDIZED_SOURCE:
+  - |
+    default: csv
+      csv:
+        file: /home/oxidized/.config/oxidized/equipments.csv
+        delimiter: !ruby/regexp /,/
+        map:
+          name: 0
+          ip: 1
+          model: 2
+          group: 3
+        gpg: false
+# first line is indented in the template so "  " will be added before "default: git"
+OXIDIZED_OUTPUT:
+  - |
+    default: git
+      git:
+        user: Oxidized
+        email: oxidized@example.com
+        repo: /home/oxidized/.config/oxidized/repo
+        single_repo: true
+OXIDIZED_EQUIPMENTS:
+  - NAME: com.example.switch001
+    IP: 10.0.0.2
+    MODEL: ios
+    GROUP: first
+  - NAME: com.example.switch002
+    IP: 10.0.0.3
+    MODEL: ios
+    GROUP: second
+  - NAME: com.example.switch001
+    IP: 10.0.0.4
+    MODEL: ios
+    GROUP: third
