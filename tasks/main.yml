@@ -10,11 +10,20 @@
     comment: Oxidized user
     name: oxidized
     group: oxidized
-    groups: podman
     shell: /sbin/nologin
     create_home: true
     state: present
     uid: 30000
+
+- name: Configure subuid/subgid for oxidized user
+  lineinfile:
+    path: "{{ item.path }}"
+    line: "oxidized:10000:65536"
+    create: true
+  with_items:
+    - { path: '/etc/subuid' }
+    - { path: '/etc/subgid' }
+  become: true
 
 - name: Create needed directories.
   file:
