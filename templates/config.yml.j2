@@ -25,6 +25,22 @@ password: {{ OXIDIZED_SSH_PASSWORD }}
 {% endif %}
 {% endif %}
 
+{% if OXIDIZED_GROUPS | length > 0 %}
+# Group settings
+groups:
+{% for groups in OXIDIZED_GROUPS %}
+  {{ groups }}
+{% endfor %}
+{% endif %}
+
+{% if OXIDIZED_MODELS | length > 0 %}
+# Model settings
+models:
+{% for models in OXIDIZED_MODELS %}
+  {{ models }}
+{% endfor %}
+{% endif %}	
+
 {% if OXIDIZED_INPUT | length > 0 %}
 # Input settings
 input:
