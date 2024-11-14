@@ -16,7 +16,7 @@ OXIDIZED_HOOKS:
         remote_repo:
           first: git@github.com:example/oxidized.git
           second: git@github.com:example/oxidized.git
-          third: git@github.com:northvolt/oxidized.git
+          third: git@github.com:example/oxidized.git
         type: githubrepo
         events: [post_store]
         publickey: id_git.pub
