@@ -5,6 +5,7 @@ This role deploy [Oxidized](https://github.com/ytti/oxidized#index) on a **Debia
 ## Role Variables
 
 Available variables are listed in [defaults/main.yml](defaults/main.yml).
+An example of variables can be found in [examples/oxidized.yml](examples/oxidized.yml).
 
 ## License
 
