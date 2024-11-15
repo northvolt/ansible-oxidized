@@ -72,6 +72,17 @@
     - src: "{{ OXIDIZED_GIT_PRIVATE_KEY_TEMPLATE }}"
       dst: "/home/oxidized/.ssh/{{ OXIDIZED_GIT_PRIVATE_KEY_FILE }}"
 
+- name: Copy ssh config
+  copy:
+    content: |
+      Host *
+        User oxidized
+        StrictHostKeyChecking accept-new
+    dest: /home/oxidized/.ssh/config
+    owner: oxidized
+    group: oxidized
+    mode: u=r,g=,o=
+
 - name: Copy models.
   copy:
     src: "{{ OXIDIZED_IMPORT_MODEL_LOCAL_PATH }}"
