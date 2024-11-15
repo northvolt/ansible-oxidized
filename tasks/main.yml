@@ -103,10 +103,8 @@
     volume:
       - "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_CONFIG_FILE }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/config:rw"
       - "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_DB_FILE }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/equipments.csv:rw"
-      - "/home/oxidized/.ssh/{{ OXIDIZED_GIT_PUBLIC_KEY_FILE }}:/home/oxidized/.ssh/{{ OXIDIZED_GIT_PUBLIC_KEY_FILE }}:rw"
-      - "/home/oxidized/.ssh/{{ OXIDIZED_GIT_PRIVATE_KEY_FILE }}:/home/oxidized/.ssh/{{ OXIDIZED_GIT_PRIVATE_KEY_FILE }}:rw"
+      - "/home/oxidized/.ssh:/home/oxidized/.ssh"
       - "{{ OXIDIZED_IMPORT_MODEL_PATH }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/model:rw"
       - "{{ OXIDIZED_GIT_LOCAL_REPO }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/repo:rw"
-      - "/root/.ssh/known_hosts:/home/oxidized/.ssh/known_hosts:rw"
   tags: molecule-notest
   become: true
