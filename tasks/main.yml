@@ -15,14 +15,13 @@
     state: present
     uid: 30000
 
-- name: Configure subuid/subgid for oxidized user
-  lineinfile:
-    path: "{{ item.path }}"
-    line: "oxidized:10000:65536"
-    create: true
-  with_items:
-    - { path: '/etc/subuid' }
-    - { path: '/etc/subgid' }
+- name: Allow oxidized to sudo
+  community.general.sudoers:
+    name: allow-sudo-oxidized
+    state: present
+    user: oxidized
+    commands: ALL
+  when: not ansible_check_mode
   become: true
 
 - name: Create needed directories.
@@ -60,14 +59,13 @@
       dst: "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_DB_FILE }}"
   when: OXIDIZED_EQUIPMENTS 
 
-- name: Copy SSH keys.
-  blockinfile:
-    create: true
-    block: "{{ item.src }}"
-    path: "{{ item.dst }}"
+- name: Copy SSH keys
+  copy:
+    content: "{{ item.src }}"
+    dest: "{{ item.dst }}"
     owner: oxidized
     group: oxidized
-    mode: u=rwx,g=,o=
+    mode: u=r,g=,o=
   loop:
     - src: "{{ OXIDIZED_GIT_PUBLIC_KEY_TEMPLATE }}"
       dst: "/home/oxidized/.ssh/{{ OXIDIZED_GIT_PUBLIC_KEY_FILE }}"
@@ -98,6 +96,7 @@
     hostname: oxidized
     image: docker.io/oxidized/oxidized:latest
     restart_policy: always
+    network: host
     dns_servers: "{{ OXIDIZED_DNS }}"
     ports:
       - "{{ OXIDIZED_LISTEN_PORT }}:{{ OXIDIZED_LISTEN_PORT }}"
