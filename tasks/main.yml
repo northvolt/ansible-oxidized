@@ -100,7 +100,7 @@
     restart_policy: always
     dns_servers: "{{ OXIDIZED_DNS }}"
     ports:
-      - "{{ OXIDIZED_LISTEN }}:{{ OXIDIZED_LISTEN_PORT }}"
+      - "{{ OXIDIZED_LISTEN_PORT }}:{{ OXIDIZED_LISTEN_PORT }}"
     volume:
       - "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_CONFIG_FILE }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/config:rw"
       - "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_DB_FILE }}:{{ OXIDIZED_CONTAINER_CONFIG_PATH }}/equipments.csv:rw"
