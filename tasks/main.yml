@@ -65,7 +65,7 @@
     dest: "{{ item.dst }}"
     owner: oxidized
     group: oxidized
-    mode: u=r,g=,o=
+    mode: u=rw,g=,o=
   loop:
     - src: "{{ OXIDIZED_GIT_PUBLIC_KEY_TEMPLATE }}"
       dst: "/home/oxidized/.ssh/{{ OXIDIZED_GIT_PUBLIC_KEY_FILE }}"
@@ -82,7 +82,6 @@
     owner: oxidized
     group: oxidized
     mode: u=r,g=,o=
-  when: OXIDIZED_GIT_USE_REMOTE_REPO
 
 - name: Copy models.
   copy:
@@ -100,6 +99,7 @@
     repo: "{{ OXIDIZED_GIT_REMOTE_REPO }}"
     update: false
     accept_hostkey: true
+  when: OXIDIZED_GIT_USE_REMOTE_REPO
 
 - name: Create the oxidized container
   containers.podman.podman_container:
