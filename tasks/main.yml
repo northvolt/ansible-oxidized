@@ -82,6 +82,7 @@
     owner: oxidized
     group: oxidized
     mode: u=r,g=,o=
+  when: OXIDIZED_GIT_USE_REMOTE_REPO
 
 - name: Copy models.
   copy:
