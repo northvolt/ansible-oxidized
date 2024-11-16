@@ -95,7 +95,7 @@
 - name: Clone backup repository
   git:
     dest: "{{ OXIDIZED_GIT_LOCAL_REPO }}"
-    key_file: "{{ OXIDIZED_CONFIG_PATH }}/{{ OXIDIZED_GIT_PRIVATE_KEY_FILE }}"
+    key_file: "/home/oxidized/.ssh/{{ OXIDIZED_GIT_PRIVATE_KEY_FILE }}"
     repo: "{{ OXIDIZED_GIT_REMOTE_REPO }}"
     update: false
     accept_hostkey: true
