@@ -3,6 +3,9 @@ resolve_dns: {{ OXIDIZED_RESOLVE_DNS }}
 interval: {{ OXIDIZED_INTERVAL }}
 use_syslog: {{ OXIDIZED_USE_SYSLOG }}
 threads: {{ OXIDIZED_THREADS }}
+{% if OXIDIZED_USE_MAX_THREADS %}
+use_max_threads: {{ OXIDIZED_USE_MAX_THREADS }}
+{% endif %}
 timeout: {{ OXIDIZED_TIMEOUT }}
 retries: {{ OXIDIZED_RETRIES }}
 prompt: {{ OXIDIZED_PROMPT }}
